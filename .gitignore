@@ -1,7 +1,8 @@
+/.cache/*
 /config/routes.yaml
-/public/assets/
-/src/Controller/
-/src/Repository/
-/src/View/
+/public/assets/*
+/src/Controller/*
+/src/Repository/*
+/src/View/*
 /vendor/
 /composer.lock

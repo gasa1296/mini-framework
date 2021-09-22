@@ -7,6 +7,9 @@ use Core\RequestManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGenerator;
 
+use Twig\Loader\FilesystemLoader;
+use Twig\Environment;
+
 /**
  * Plantilla para controladores
  * @author Gabriel Segovia (gabriel.asa.1296@gmail.com)
@@ -15,6 +18,8 @@ abstract class Controller
 {
 	protected $request;
 	protected $parameters;
+	protected $loader;
+	protected $twig;
 
 	/**
 	 * @param array $parameters parametros de la ruta
@@ -24,6 +29,11 @@ abstract class Controller
 	{
 		$this->parameters = RequestManager::getRequestParameters();
 		$this->request = Request::createFromGlobals();
+
+		$this->loader = new FilesystemLoader(__DIR__ . '/../src/View/');
+		$this->twig = new Environment($this->loader, [
+			'cache' => __DIR__ . '/../.cache'
+		]);
 	}
 	/**
 	 * Genera url
@@ -52,7 +62,8 @@ abstract class Controller
 	 */
 	protected function render(string $view, array $data = [])
 	{
-		require __DIR__ . '/../src/View/' . $view . '.php';
+		$template = $this->twig->load($view . '.html');
+		echo $template->render($data);
 	}
 	/**
 	 * 
