@@ -11,7 +11,7 @@ use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 
 /**
- * Plantilla para controladores
+ * Clase Abstracta para controladores
  * @author Gabriel Segovia (gabriel.asa.1296@gmail.com)
  */
 abstract class Controller
@@ -30,10 +30,27 @@ abstract class Controller
 		$this->parameters = RequestManager::getRequestParameters();
 		$this->request = Request::createFromGlobals();
 
+	}
+	/**
+	 * Setea Twig para su uso
+	 */
+	private function setTwig()
+	{
+		//configurar twig
 		$this->loader = new FilesystemLoader(__DIR__ . '/../src/View/');
 		$this->twig = new Environment($this->loader, [
 			'cache' => __DIR__ . '/../.cache'
 		]);
+		$getUrl = new \Twig\TwigFunction('getUrl', function (string $route, $parameters = array()) {
+			return $this->generateRoute($route, $parameters = array());
+		});
+		$getAsset = new \Twig\TwigFunction('getAsset', function (string $assets) {
+			return $this->getAssets($assets);
+		});
+
+		$this->twig->addGlobal('csrfToken', Security::getCSRF());
+		$this->twig->addFunction($getUrl);
+		$this->twig->addFunction($getAsset);
 	}
 	/**
 	 * Genera url
@@ -58,18 +75,23 @@ abstract class Controller
 		die();
 	}
 	/**
-	 * 
+	 * Carga vista hecha en Twig, el archivo debe tener terminacion ".twig"
+	 * @param string $view nombre de la vista
+	 * @param array $context datos a utilizar en la vista
 	 */
-	protected function render(string $view, array $data = [])
+	protected function render(string $view, array $context = [])
 	{
-		$template = $this->twig->load($view . '.html');
-		echo $template->render($data);
+		$this->setTwig();
+		$template = $this->twig->load($view . '.twig');
+		echo $template->render($context);
 	}
 	/**
-	 * 
+	 * Obtiene cadena con la ubicacion del asset pasado como parametro
+	 * @param string $asset Archivo a concatenar en la carpeta asset
+	 * @return string Ubicacion del asset pasado como parametro
 	 */
-	protected function getAssets(string $assets)
+	protected function getAssets(string $asset): string
 	{
-		return '/assets' . $assets;
+		return '/assets' . $asset;
 	}
 }
