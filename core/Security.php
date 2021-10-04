@@ -4,7 +4,7 @@ namespace Core;
 use Exception;
 
 /**
- * Contiene configuracion de seguridad y funciones que las usen
+ * Contiene funciones relacionadas con la seguridad del sistema
  * @author Gabriel Segovia (gabriel.asa.1296@gmail.com)
  */
 class Security
@@ -15,11 +15,10 @@ class Security
      */
     public static function getCSRF(): string
     {
-	session_start();
-	if (empty($_SESSION['csrf_token']))
-    {
-        $_SESSION['csrf_token'] = base64_encode(openssl_random_pseudo_bytes(64));
-	}
+        if (empty($_SESSION['csrf_token']))
+        {
+            $_SESSION['csrf_token'] = base64_encode(openssl_random_pseudo_bytes(64));
+        }
         return $_SESSION['csrf_token'];
     }
     /**
