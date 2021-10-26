@@ -1,0 +1,6 @@
+#driver: pdo_mysql
+#user: dbuser
+#password: dbpassword
+#dbname: dbname
+#host: dbhost
+#url: dburl
