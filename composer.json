@@ -3,6 +3,7 @@
         "psr-4": {
             "Config\\": "config/",
             "Core\\": "core/",
+            "Resources\\": "resources",
             "App\\": "src/"
         }
     },
