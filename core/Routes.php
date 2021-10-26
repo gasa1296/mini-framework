@@ -1,5 +1,5 @@
 <?php
-namespace Config;
+namespace Core;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Routing\Loader\YamlFileLoader;

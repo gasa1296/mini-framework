@@ -1,7 +1,7 @@
 <?php
 namespace Core;
 
-use Config\Routes;
+use Core\Routes;
 use Core\Security;
 use Core\RequestManager;
 use Symfony\Component\HttpFoundation\Request;

@@ -6,7 +6,7 @@ use Symfony\Component\Routing\Matcher\UrlMatcher;
 
 use Symfony\Component\HttpFoundation\Request;
 
-use Config\Routes;
+use Core\Routes;
 
 /**
  * Maneja las peticiones del servidor
