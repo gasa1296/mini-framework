@@ -3,8 +3,9 @@ include_once __DIR__ . '/../vendor/autoload.php';
 
 use Core\RequestManager;
 /**
- * @todo adaptar infraestructura para implementar modelos, Cambiar a doctrine ORM para conectar con la BBDD
- * @todo integrar DI
+ * @todo Adaptar infraestructura para implementar modelos
+ * @todo Cambiar a doctrine ORM para conectar con la BBDD
+ * @todo Integrar DI
  */
 try
 {
